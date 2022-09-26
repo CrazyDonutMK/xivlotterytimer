@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 function GetDatePeriod() {
     var currentDate = new Date();
-    var dateAnchor = new Date(2022, 8, 11);
+    var dateAnchor = new Date(2022, 8, 11, 15, 0, 0);
     var currentCycle = Math.floor(dateDiffInDays(currentDate, dateAnchor)/9);
     dateAnchor.setDate(dateAnchor.getDate() + currentCycle*9)
     var dateStart = new Date(dateAnchor);
