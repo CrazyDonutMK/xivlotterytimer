@@ -1,8 +1,9 @@
 $(document).ready(function() {
-    $('#entryPeriod').text(GetDatePeriod()[0])
-    $('#resultsPeriod').text(GetDatePeriod()[1])
-    $("#countdown").countdown(GetDatePeriod()[2], function(event) {
-    $(this).text(GetDatePeriod()[3] +
+    var data = GetDatePeriod();
+    $('#entryPeriod').text(data[0])
+    $('#resultsPeriod').text(data[1])
+    $("#countdown").countdown(data[2], function(event) {
+    $(this).text(data[3] +
       event.strftime('%D days %H:%M:%S')
     );
     if(event.elapsed) {
@@ -12,21 +13,30 @@ $(document).ready(function() {
 });  
 
 function GetDatePeriod() {
-    var currentDate = new Date();
-    var dateAnchor = new Date(2022, 8, 11, 15, 0, 0);
-    var currentCycle = Math.floor(dateDiffInDays(currentDate, dateAnchor)/9);
-    dateAnchor.setDate(dateAnchor.getDate() + currentCycle*9)
-    var dateStart = new Date(dateAnchor);
-    var dateEntry = new Date(dateAnchor);
-    var dateResults = new Date(dateAnchor);
+    var currentDate = new Date(); // Local DateTime
+    var dateAnchor = new Date("September 11, 2022, 15:00:00 GMT+0000"); // 2022, 8, 11, 15, 0, 0
+    var currentCycle = Math.floor(dateDiffInDays(currentDate, dateAnchor)/9); // FIX
+    console.log(dateDiffInDays(currentDate, dateAnchor));
+    console.log(dateDiffInDays(currentDate, dateAnchor)/9);
+    dateAnchor.setUTCDate(dateAnchor.getUTCDate() + currentCycle*9)
+    var dateStart = new Date(dateAnchor.toUTCString());
+    var dateEntry = new Date(dateAnchor.toUTCString());
+    var dateResults = new Date(dateAnchor.toUTCString());
 
-    dateEntry.setDate(dateStart.getDate() + 5);
-    dateResults.setDate(dateEntry.getDate() + 4);
+    console.log('entry ' + dateEntry.toUTCString());
+    console.log('result ' + dateResults.toUTCString());
+
+    dateEntry.setUTCDate(dateStart.getUTCDate() + 5);
+    dateResults.setUTCDate(dateStart.getUTCDate() + 9);
 
     var strDateStart = formatDateNew(dateStart);
     var strDateEntry = formatDateNew(dateEntry);
     var strDateResults = formatDateNew(dateResults);
+    console.log(strDateStart);
+    console.log(strDateEntry);
+    console.log(strDateResults);
 
+    // ---- Countdown related -----
     var countdown = 0;
     var countdownPeriod = 'Entry';
     if(currentDate.getTime() > dateStart.getTime() && currentDate.getTime() < dateEntry.getTime()) {
@@ -51,12 +61,9 @@ function formatDateOld(date) {
     return date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 }
 
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
 
 function formatDateNew(date) {
-    return  monthNames[(date.getMonth())] + " " + date.getDate() + ", " + date.getFullYear();
+    return  date.toLocaleString('default', { month: 'long' }) + " " + date.getDate() + ", " + date.getFullYear();
 }
 function GetTimeByZone(zone){
     switch(zone) {
