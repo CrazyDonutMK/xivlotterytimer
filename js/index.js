@@ -1,12 +1,10 @@
 /*jslint browser: true*/ /*global  $*/
 $(document).ready(function () {
     var data = GetDatePeriod();
-    $('#entryPeriod').text(data[0])
-    $('#resultsPeriod').text(data[1])
+    $('#entryPeriod').text(data[0]);
+    $('#resultsPeriod').text(data[1]);
     $("#countdown").countdown(data[2], function (event) {
-        $(this).text(data[3] +
-            event.strftime('%D days %H:%M:%S')
-        );
+        $(this).text(data[3] + event.strftime('%D days %H:%M:%S'));
         if (event.elapsed) {
             $(this).text('Error (Wrong cycle in settings)');
         }
@@ -19,7 +17,7 @@ function GetDatePeriod() {
     var currentCycle = Math.floor(dateDiffInDays(currentDate, dateAnchor) / 9); // FIX
     console.log(dateDiffInDays(currentDate, dateAnchor));
     console.log(dateDiffInDays(currentDate, dateAnchor) / 9);
-    dateAnchor.setUTCDate(dateAnchor.getUTCDate() + currentCycle * 9)
+    dateAnchor.setUTCDate(dateAnchor.getUTCDate() + currentCycle * 9);
     var dateStart = new Date(dateAnchor.toUTCString());
     var dateEntry = new Date(dateAnchor.toUTCString());
     var dateResults = new Date(dateAnchor.toUTCString());
@@ -62,23 +60,28 @@ function GetDatePeriod() {
     // }
 
     return [
-        ('' + strDateStart + GetTimeByZone() + ' ➜ ' + strDateEntry + GetTimeByZone() + ''),
-        ('' + strDateEntry + GetTimeByZone() + ' ➜ ' + strDateResults + GetTimeByZone() + ''),
+        ('' + strDateStart + GetServerTimeByZone() + ' ➜ ' + strDateEntry + GetServerTimeByZone() + ''),
+        ('' + strDateEntry + GetServerTimeByZone() + ' ➜ ' + strDateResults + GetServerTimeByZone() + ''),
         countdown,
         countdownPeriod
     ];
 }
 
 function formatDateOld(date) {
-    console.log(date.toLocaleString());
-    return date.toLocaleString();//Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+    console.log(date.toLocaleString('en', {
+        hour12: true
+    }));
+    return date.toLocaleString('en', {
+        hour12: true
+    });
+    //Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
 }
 
 
 function formatDateNew(date) {
-    return date.toLocaleString('default', { month: 'long', timeZone: 'UTC' }) + " " + date.getDate() + ", " + date.getFullYear();
+    return date.toLocaleString('en', {month: 'long', timeZone: 'UTC'}) + " " + date.getDate() + ", " + date.getFullYear();
 }
-function GetTimeByZone(zone) {
+function GetServerTimeByZone(zone) {
     switch (zone) {
         case 0: return ' 8:00 PDT';
         case 1: return ' 15:00 ST';
