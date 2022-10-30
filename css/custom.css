@@ -10,6 +10,8 @@
     box-shadow: 4px 4px #957402;
     /* background-color: #fffeee; */
     background: url('../img/bgb.png');
+    background-blend-mode: multiply;
+    background-color: #d3d3d3;
     font-family: 'Trump Gothic Pro';
 }
 
