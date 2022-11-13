@@ -6,22 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-utilities.min.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>XIV Housing Lottery Tracker</title>
+    <title>XIV Housing Lottery Timer</title>
   </head>
   <body>
     <div class="container">
         <div class="card" style="margin-top: 50px; width: fit-content;">
           <div class="card-header">
-            <h3 class="card-title" style="margin: 0 auto; width: fit-content;">XIV Housing Lottery Tracker</h3>
+            <h3 class="card-title" style="margin: 0 auto; width: fit-content;">XIV Housing Lottery Timer</h3>
           </div>
             <div class="card-body">
-              <div class="card-text">Entry Period (5 days): <div id="entryPeriod" class="text-end"></div></div>
-              <div class="card-text">Results Period (4 days): <div id="resultsPeriod" class="text-end"></div></div>
+              <div class="card-text">Entry period (5 days): <div id="entryPeriod" class="text-end"></div></div>
+              <div class="card-text">Results period (4 days): <div id="resultsPeriod" class="text-end"></div></div>
               <p id="countdown" class="card-text"></p>
+              <label class="switch">
+                <input id="timeZoneCheckbox" type="checkbox">
+                <span class="slider">
+                  <span class="switch-text d-flex">
+                    <div>LT</div> 
+                    <div>ST</div>
+                  </span>
+                </span>
+              </label>
             </div>
           </div>
     </div>
@@ -32,6 +41,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/xivlottery.min.js"></script>
   </body>
 </html>

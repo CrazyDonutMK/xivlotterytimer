@@ -1,6 +1,7 @@
 /*jslint browser: true*/ /*global  $*/
 
 $(document).ready(function () {
+  $('#timeZoneCheckbox').prop('checked', JSON.parse(localStorage.getItem('timeZonePrefered')));
   let data = GetDatePeriod();
   $('#entryPeriod').text(data[0]);
   $('#resultsPeriod').text(data[1]);
@@ -10,14 +11,17 @@ $(document).ready(function () {
       $(this).text('Error (Wrong cycle in settings)');
     }
   });
+  $("#timeZoneCheckbox").on('change', function() {
+    localStorage.setItem('timeZonePrefered', this.checked);
+  });
 });
 
 function GetDatePeriod() {
   let currentDate = new Date(); // Local DateTime
   let dateAnchor = new Date('October 8, 2022, 15:00:00 GMT+0000'); // Initial Entry period start date to count cycles from
-  let currentCycle = Math.floor(dateDiffInDays(currentDate, dateAnchor) / 9);
-  console.log(dateDiffInDays(currentDate, dateAnchor));
-  console.log(dateDiffInDays(currentDate, dateAnchor) / 9);
+  let currentCycle = Math.floor(dateDiff(currentDate, dateAnchor) / 9);
+  console.log(dateDiff(currentDate, dateAnchor));
+  console.log(dateDiff(currentDate, dateAnchor) / 9);
   dateAnchor.setUTCDate(dateAnchor.getUTCDate() + currentCycle * 9);
   let dateStart = new Date(dateAnchor.toUTCString());
   let dateEntry = new Date(dateAnchor.toUTCString());
@@ -29,8 +33,8 @@ function GetDatePeriod() {
   dateResults.setUTCDate(dateStart.getUTCDate() + 9);
   dateResults.setUTCHours(15);
 
-  console.log('entry ' + dateEntry.toUTCString());
-  console.log('result ' + dateResults.toUTCString());
+  console.log('Entry ' + dateEntry.toUTCString());
+  console.log('Result ' + dateResults.toUTCString());
 
   let strDateStart = formatDateNew(dateStart);
   let strDateEntry = formatDateNew(dateEntry);
@@ -50,7 +54,7 @@ function GetDatePeriod() {
     currentDate.getTime() < dateEntry.getTime()
   ) {
     countdown = formatDateOld(dateEntry);
-    countdownPeriod = 'Entry  period ends in ';
+    countdownPeriod = 'Entry period ends in ';
   }
 
   console.log(
@@ -132,6 +136,13 @@ function dateDiffInDays(a, b) {
   // Discard the time and time-zone information.
   const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
   const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.floor((utc1 - utc2) / (1000 * 60 * 60 * 24));
+}
+
+function dateDiff(a, b) {
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate(), a.getUTCHours(), a.getUTCMinutes(), a.getUTCSeconds());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate(), b.getUTCHours(), b.getUTCMinutes(), b.getUTCSeconds());
 
   return Math.floor((utc1 - utc2) / (1000 * 60 * 60 * 24));
 }

@@ -1,44 +1,119 @@
 @font-face {
-    font-family: "XIVFont";
-    src: url('./Jupiter\ Pro\ Bold.otf');
-}
-
-.card {
-    border: 3px solid #ffda8a;
-    width: fit-content;
-    margin: auto;
-    box-shadow: 4px 4px #957402;
-    /* background-color: #fffeee; */
-    background: url('../img/bgb.png');
-    background-blend-mode: multiply;
-    background-color: #d3d3d3;
-    font-family: 'Trump Gothic Pro';
-}
-
-.card-title {
-    color: #fff8c9;
-    font-family: 'XIVFont';
-    text-shadow: 0px 0px 8px #6e6710;
-    -webkit-text-stroke: 0.4px rgb(104 91 0);
-}
-
-.card-text {
-    display: flex;
-    justify-content: space-between;
-    color: #ffffff;
-    font-family: fantasy;
-    font-size: 1.25rem;
-    text-shadow: 0px 0px 6px rgb(0 0 0 / 95%);
-    font-variant-caps: petite-caps;
-    -webkit-text-stroke: 0.25px rgb(0 0 0 / 100%);
-}
-
-.text-end {
-    padding-left: 15px;
+  font-family: "XIVFont";
+  src: url("./Jupiter\ Pro\ Bold.otf");
 }
 
 body {
-    background: url('../img/bga.png');
-    background-blend-mode: multiply;
-    background-color: #746c00;
+  background: url("../img/bga.png");
+  background-blend-mode: multiply;
+  background-color: #746c00;
+}
+
+.card {
+  border: 3px solid #ffda8a;
+  border-style: outset;
+  width: fit-content;
+  margin: auto;
+  box-shadow: 0px 0px 6px #cfa000;
+  /* background-color: #fffeee; */
+  background: url("../img/bgb.png");
+  background-blend-mode: multiply;
+  background-color: #d3d3d3;
+  font-family: "Trump Gothic Pro";
+}
+
+.card-title {
+  color: #fff8c9;
+  font-family: "XIVFont";
+  text-shadow: 0px 0px 8px #6e6710;
+  -webkit-text-stroke: 0.4px rgb(104 91 0);
+}
+
+.card-text {
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+  font-family: fantasy;
+  font-size: 1.25rem;
+  text-shadow: 0px 0px 6px rgb(0 0 0 / 95%);
+  font-variant-caps: petite-caps;
+  -webkit-text-stroke: 0.25px rgb(0 0 0 / 100%);
+}
+
+.text-end {
+  padding-left: 15px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  display: inline-block;
+  width: 70px;
+  height: 34px;
+  border: 2px inset #b3a86f;
+  border-radius: 4px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.switch-text {
+  color: #ffffff;
+  font-family: fantasy;
+  font-size: 1.4rem;
+  text-shadow: 0px 0px 6px rgb(0 0 0 / 95%);
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.switch-text > div {
+  width: 50%;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #a39a77;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 30px;
+  width: 32px;
+  background-color: hsl(51deg 100% 75% / 50%);
+  border: 2px outset hsl(51deg 100% 25% / 50%);
+  border-radius: 4px;
+  mix-blend-mode: overlay;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+input:checked + .slider {
+  background-color: #a39a77;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #a39a77;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(34px);
+  -ms-transform: translateX(34px);
+  transform: translateX(34px);
 }
