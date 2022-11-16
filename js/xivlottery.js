@@ -2,6 +2,14 @@
 
 $(document).ready(function () {
   $('#timeZoneCheckbox').prop('checked', JSON.parse(localStorage.getItem('timeZonePrefered')));
+  RenderInfo();
+  $('#timeZoneCheckbox').on('change', function() {
+    localStorage.setItem('timeZonePrefered', this.checked);
+    RenderInfo();
+  });
+});
+
+function RenderInfo() {
   let data = GetDatePeriod();
   $('#entryPeriod').text(data[0]);
   $('#resultsPeriod').text(data[1]);
@@ -11,10 +19,7 @@ $(document).ready(function () {
       $(this).text('Error (Wrong cycle in settings)');
     }
   });
-  $("#timeZoneCheckbox").on('change', function() {
-    localStorage.setItem('timeZonePrefered', this.checked);
-  });
-});
+}
 
 function GetDatePeriod() {
   let currentDate = new Date(); // Local DateTime
@@ -35,10 +40,12 @@ function GetDatePeriod() {
 
   console.log('Entry ' + dateEntry.toUTCString());
   console.log('Result ' + dateResults.toUTCString());
-
+  
+  //Related to LT/ST switch
   let strDateStart = formatDateNew(dateStart);
   let strDateEntry = formatDateNew(dateEntry);
   let strDateResults = formatDateNew(dateResults);
+
   console.log(strDateStart);
   console.log(strDateEntry);
   console.log(strDateResults);
@@ -83,17 +90,13 @@ function GetDatePeriod() {
   return [
     '' +
       strDateStart +
-      GetServerTimeByZone() +
       ' ➜ ' +
       strDateEntry +
-      GetServerTimeByZone() +
       '',
     '' +
       strDateEntry +
-      GetServerTimeByZone() +
       ' ➜ ' +
       strDateResults +
-      GetServerTimeByZone() +
       '',
     countdown,
     countdownPeriod,
@@ -112,23 +115,21 @@ function formatDateOld(date) {
 }
 
 function formatDateNew(date) {
-  return (
-    date.toLocaleString('en', { month: 'long', timeZone: 'UTC' }) +
+  return JSON.parse(localStorage.getItem('timeZonePrefered')) ? (
+    date.toLocaleString('en', { month: 'long', timeZone: 'UTC'}) +
+    ' ' +
+    date.getUTCDate() +
+    ', ' +
+    date.getUTCFullYear() +
+    ', ' + date.toLocaleTimeString('en', { hour12: false, timeZoneName: 'short', timeZone: 'UTC'})
+  ) : (
+    date.toLocaleString('en', { month: 'long'}) +
     ' ' +
     date.getDate() +
     ', ' +
-    date.getFullYear()
+    date.getFullYear() +
+    ', ' + date.toLocaleTimeString('en', { hour12: false, timeZoneName: 'short'})
   );
-}
-function GetServerTimeByZone(zone) {
-  switch (zone) {
-    case 0:
-      return ' 8:00 PDT';
-    case 1:
-      return ' 15:00 ST';
-    default:
-      return ' 15:00 ST';
-  }
 }
 
 // a and b are javascript Date objects
