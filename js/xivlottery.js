@@ -121,14 +121,14 @@ function formatDateNew(date) {
     date.getUTCDate() +
     ', ' +
     date.getUTCFullYear() +
-    ', ' + date.toLocaleTimeString('en', { hour12: false, timeZoneName: 'short', timeZone: 'UTC'})
+    ', ' + date.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'shortGeneric', timeZone: 'UTC'})
   ) : (
     date.toLocaleString('en', { month: 'long'}) +
     ' ' +
     date.getDate() +
     ', ' +
     date.getFullYear() +
-    ', ' + date.toLocaleTimeString('en', { hour12: false, timeZoneName: 'short'})
+    ', ' + date.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'short'})
   );
 }
 
